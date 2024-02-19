@@ -59,31 +59,6 @@ wget -q -O /root/status "https://raw.githubusercontent.com/landeanv/v5/master/st
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "memeriksa vps anda"
 sleep 0.5
-CEKEXPIRED () {
-        today=$(date -d +1day +%Y -%m -%d)
-        Exp1=$(curl -sS https://raw.githubusercontent.com/landeanv/v5/master/gerung | grep $MYIP | awk '{print $3}')
-        if [[ $today < $Exp1 ]]; then
-        echo "status script aktif.."
-        else
-        echo "SCRIPT ANDA EXPIRED";
-        exit 0
-fi
-}
-IZIN=$(curl -sS https://raw.githubusercontent.com/landeanv/v5/master/gerung | awk '{print $4}' | grep $MYIP)
-if [ $MYIP = $IZIN ]; then
-echo "IZIN DI TERIMA!!"
-CEKEXPIRED
-else
-echo "Akses di tolak!! Benget sia hurung!!";
-exit 0
-fi
-
-
-# // Root Checking
-if [ "${EUID}" -ne 0 ]; then
-		echo -e "${EROR} Please Run This Script As Root User !"
-		exit 1
-fi
 
 # // Exporting IP Address
 export IP=$( curl -s https://ipinfo.io/ip/ )
